@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopi Nusantara</title>
+    <link rel="stylesheet" href="/Css/StyleProduct.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="slide">
+    
+            <div class="item" style="background-image: url(/Image/fresh-coffee-steams-wooden-table-close-up-generative-ai.jpg);">
+                <div class="content">
+                    <div class="name">Americano</div>
+                    <div class="des">Kopi yang dibuat dengan mencampurkan espresso dengan air panas</div>
+                    <button class="buy-now" data-name="Americano" data-price="24">24K Only, Buy now</button>
+                </div>
+            </div>
+
+            <div class="item" style="background-image: url(/Image/150929101049-black-coffee-stock-super-tease.jpg);">
+                <div class="content">
+                    <div class="name">Long Black</div>
+                    <div class="des">Secangkir long black atau kopi hitam dibuat dengan menuangkan dua seloki espreso atau ristreto ke atas air panas</div>
+                    <button class="buy-now" data-name="Long Black" data-price="30">30K Only, Buy now</button>
+                </div>
+            </div>
+
+            <div class="item" style="background-image: url(/Image/image002-3.jpg);">
+                <div class="content">
+                    <div class="name">Cappuccino</div>
+                    <div class="des">Kopi susu yang berasal dari Italia dan memiliki perbandingan espresso, susu yang sudah dipanaskan, dan busa yang sama</div>
+                    <button class="buy-now" data-name="Cappuccino" data-price="34">34K Only, Buy now</button>
+                </div>
+            </div>
+
+            <div class="item" style="background-image: url(/Image/cup-coffee-latte-heart-shape-600nw-1568190193.jpg);">
+                <div class="content">
+                    <div class="name">Caffé Latte</div>
+                    <div class="des">Kopi susu cafe au lait, dibuat dengan espresso yang kuat sebagai dasarnya</div>
+                    <button class="buy-now" data-name="Caffé Latte" data-price="28">28K Only, Buy now</button>
+                </div>
+            </div>
+
+            <div class="item" style="background-image: url(/Image/Kopi\ Nusantara\ home\ background.png);">
+                <div class="content">
+                    <div class="name">Mocha Latte</div>
+                    <div class="des">Minuman kopi susu yang diberi sentuhan manis dengan tambahan cokelat</div>
+                    <button class="buy-now" data-name="Mocha Latte" data-price="25">25K Only, Buy now</button>
+                </div>
+            </div>
+            
+            <div class="item" style="background-image: url(/Image/Contact\ Us\ Backgound.jpg);">
+                <div class="content">
+                    <div style="color: rgb(255, 255, 255);" class="name">Affogato</div>
+                    <div style="color: rgb(255, 255, 255);" class="des">Hidangan penutup tradisional Italia yang terbuat dari es krim atau gelato yang disiram dengan espresso panas</div>
+                    <button class="buy-now" data-name="Affogato" data-price="32">32K Only, Buy now</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="button">
+            <button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+ 
+ $(document).ready(function () {
+        let cart = [];
+
+        $('.buy-now').click(function () {
+            let productName = $(this).data('name');
+            let productPrice = $(this).data('price');
+
+            cart.push({ name: productName, price: productPrice });
+
+            Swal.fire({
+                title: 'Added to Cart',
+                text: `You Choose ${productName}`,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Go to Checkout',
+                cancelButtonText : "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/CheckoutPage.html'; 
+                }
+            });
+        });
+
+        $('.next').click(function () {
+            let $items = $('.item');
+            $('.slide').append($items.first());
+        });
+
+        $('.prev').click(function () {
+            let $items = $('.item');
+            $('.slide').prepend($items.last());
+        });
+    });
+    </script>
+</body>
+</html>

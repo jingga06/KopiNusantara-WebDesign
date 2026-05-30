@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopi Nusantara</title>
+    <link rel="stylesheet" href="/Css/StyleFeedback.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">Give Us a Feedback</div>
+    <div class="content">
+      
+      <form action="#">
+        <div class="user-details">
+          
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" placeholder="Enter your name" required>
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" placeholder="Enter your username" required>
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="text" placeholder="Enter your email" required>
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" placeholder="Enter your number" required>
+          </div>
+        </div>
+        <div class="survei-details">
+          <input type="radio" name="survei" id="dot-1">
+          <input type="radio" name="survei" id="dot-2">
+          <input type="radio" name="survei" id="dot-3">
+          <span class="survei-title">Survei</span>
+          <div class="category">
+            
+            <label for="dot-1">
+              <span class="dot one"></span>
+              <span class="survei">Sangat Puas</span>
+            </label>
+            
+            <label for="dot-2">
+              <span class="dot two"></span>
+              <span class="survei">Puas</span>
+            </label>
+            
+            <label for="dot-3">
+              <span class="dot three"></span>
+              <span class="survei">Tidak Puas</span>
+            </label>
+          </div>
+        </div>
+
+    <div class="survei-details">
+        <span class="survei-title">Survei To Add New Good Product :</span>
+        <div class="checkbox" id="checklist">
+          <input checked="" value="1" name="r" type="checkbox" id="01">
+          <label for="01">Cold Brew Coffe</label> <br>
+          <input value="2" name="r" type="checkbox" id="02">
+          <label for="02">Vanilla Latte</label> <br>
+          <input value="3" name="r" type="checkbox" id="03">
+          <label for="03">Hazelnut Latte</label> <br>
+          <input value="4" name="r" type="checkbox" id="04">
+          <label for="04">Caramel Latte</label> <br>
+          <input value="5" name="r" type="checkbox" id="05">
+          <label for="05">Pumpkin Spice Latte</label> <br>
+        </div>
+    </div>
+    <br>
+    <label for="Coffee">Choose a Top Taste Product :</label>
+    <select id="Coffee" name="coffee">
+        <option value="Long Black">Long Black</option>
+        <option value="Cappuccino">Cappuccino</option>
+        <option value="Caffé Latte">Caffé Latte</option>
+        <option value="Mocha Latte">Mocha Latte</option>
+        <option value="Americano">Americano</option>
+        <option value="Affogato">Affogato</option>
+    </select>
+    <div id="output">Please choose a product to see details.</div>
+
+        <div class="button">
+          <input type="submit" value="Submit Feedback">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+            $('#Coffee').change(function () {
+                let selectedProduct = $(this).val();
+
+                if (selectedProduct) {
+                    $('#output').html('You selected: <strong>' + selectedProduct + '</strong>');
+                } else {
+                    $('#output').text('Please choose a product to see details.');
+                }
+            });
+        });
+        
+  </script>
+</body>
+</html>

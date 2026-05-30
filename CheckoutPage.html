@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Kopi Nusantara</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+    body {
+    
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image: url('/Image/pexels-wildlittlethingsphoto-887723.jpg');
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 900px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255, .2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    color: #fff;
+    border-radius: 25px;
+    padding: 30px 40px;
+    animation: animate 1s ease-in-out 0.2s 1 backwards;
+}
+
+.heading {
+    font-size: 35px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fbfdff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.inputBox {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.inputBox input,
+.inputBox select,
+.inputBox textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    color: #444444;
+    border: none;
+    outline: none;
+    background-color: #f5f4fa;
+}
+
+.inputBox input::placeholder,
+.inputBox select::placeholder,
+.inputBox textarea::placeholder {
+    color: #444444;
+    opacity: 0.5;
+    font-size: 12px;
+}
+
+.inputBox.error input,
+.inputBox.error select,
+.inputBox.error textarea {
+    border-bottom: 1px solid red;
+}
+
+.inputBox .err-msg {
+    font-size: 10px;
+    color: red;
+    margin-top: 5px;
+}
+
+.btn {
+    width: 100%;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    color: rgb(60, 54, 54);
+    background-color: #f3dc6b;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background-color: #d3b95b;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    background-color: #e9c96b;
+}
+
+table th {
+    background-color: #c5904f;
+    color: white;
+}
+
+.payment-options label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#orderSummary {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #c6e260;
+    border-radius: 10px;
+    display: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 class="heading">Food Order Form</h1>
+
+    <form id="orderForm">
+        <div class="inputBox">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="notes">Address:</label>
+            <textarea id="notes" name="notes" placeholder="Enter your delivery address" required></textarea>
+        </div>
+
+        <div class="inputBox">
+            <label for="daftarMenu">Menu:</label>
+            <select id="daftarMenu" name="Menu">
+                <option value="">Select a menu item</option>
+                <optgroup label="Coffee">
+                    <option value="Americano">Americano - Rp 24,000</option>
+                    <option value="Long Black">Long Black - Rp 30,000</option>
+                    <option value="Cappuccino">Cappuccino - Rp 34,000</option>
+                    <option value="Caffé Latte">Caffé Latte - Rp 28,000</option>
+                    <option value="Mocha Latte">Mocha Latte - Rp 25,000</option>
+                    <option value="Affogato">Affogato - Rp 32,000</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="inputBox">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" placeholder="Enter quantity">
+        </div>
+
+        <button type="button" id="addMenu" class="btn">Add Menu Item</button>
+
+        <table id="resultTable">
+            <thead>
+                <tr>
+                    <th>Menu</th>
+                    <th>Quantity</th>
+                    <th>Total Price (Rp)</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <div class="inputBox">
+            <label>Total Purchases: Rp <span id="totalPrice">0</span></label>
+        </div>
+
+        
+
+        <div class="payment-options">
+            <label>Payment Method:</label>
+            <label>
+                <input type="radio" name="metode_pembayaran" value="Transfer Bank" required>
+                Transfer Bank
+            </label>
+            <label>
+                <input type="radio" name="metode_pembayaran" value="OVO">
+                OVO
+            </label>
+            <label>
+                <input type="radio" name="metode_pembayaran" value="DANA">
+                DANA
+            </label>
+            <label>
+                <input type="radio" name="metode_pembayaran" value="GOPAY">
+                GOPAY
+            </label>
+            <label>
+                <input type="radio" name="metode_pembayaran" value="Shopee-PAY">
+                Shopee-PAY
+            </label>
+            <label>
+                <input type="radio" name="metode_pembayaran" value="Cash">
+                Cash
+            </label>
+        </div>
+
+        <button type="submit" class="btn">Submit Order</button>
+    </form>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#phone').keypress(function(event) {
+        if (event.key.match(/[a-zA-Z]/)) {
+            event.preventDefault(); 
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Letters cannot be entered in phone number!',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    });
+
+    
+    const prices = {
+        "Americano": 24000,
+        "Long Black": 30000,
+        "Cappuccino": 34000,
+        "Caffé Latte": 28000,
+        "Mocha Latte": 25000,
+        "Affogato": 32000
+    };
+
+    let orderItems = [];
+    let totalPrice = 0;
+
+    
+    $('#addMenu').click(function() {
+        const menu = $('#daftarMenu').val();
+        const quantity = parseInt($('#quantity').val());
+
+        if (menu && quantity > 0) {
+            const pricePerItem = prices[menu];
+            const itemTotal = pricePerItem * quantity;
+
+           
+            orderItems.push({
+                menu: menu,
+                quantity: quantity,
+                total: itemTotal
+            });
+
+            $('#resultTable tbody').append(`
+                <tr>
+                    <td>${menu}</td>
+                    <td>${quantity}</td>
+                    <td>${itemTotal.toLocaleString()}</td>
+                </tr>
+            `);
+
+            totalPrice += itemTotal;
+            $('#totalPrice').text(totalPrice.toLocaleString());
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Menu Item Added!',
+                text: `${menu} x ${quantity} added to order`,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000
+            });
+
+            
+            $('#daftarMenu').val('');
+            $('#quantity').val('');
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Incomplete Selection',
+                text: 'Please select a menu and enter a quantity.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    });
+
+    
+    $('#orderForm').submit(function(event) {
+        event.preventDefault();
+
+       
+        let valid = true;
+        $('.inputBox').removeClass('error');
+        $('.err-msg').remove();
+
+        
+        $('#orderForm input[required], #orderForm select[required], #orderForm textarea[required]').each(function() {
+            if (!$(this).val()) {
+                addError($(this), 'This field is required');
+                valid = false;
+            }
+        });
+
+        
+        if (orderItems.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please add at least one menu item.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            valid = false;
+        }
+
+        
+        if (!$('input[name="metode_pembayaran"]:checked').val()) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Payment Method Missing',
+                text: 'Please select a payment method.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            valid = false;
+        }
+
+        if (valid) {
+            
+            const orderDetails = {
+                name: $('#name').val(),
+                phone: $('#phone').val(),
+                email: $('#email').val(),
+                address: $('#notes').val(),
+                deliveryDate: $('#tanggal').val(),
+                paymentMethod: $('input[name="metode_pembayaran"]:checked').val(),
+                items: orderItems,
+                totalPrice: totalPrice
+            };
+
+            
+            Swal.fire({
+                title: 'Confirm Your Order',
+                html: `
+                    <div style="text-align: left;">
+                        <p><strong>Name:</strong> ${orderDetails.name}</p>
+                        <p><strong>Phone:</strong> ${orderDetails.phone}</p>
+                        <p><strong>Email:</strong> ${orderDetails.email}</p>
+                        <p><strong>Address:</strong> ${orderDetails.address}</p>
+                        <p><strong>Delivery Date:</strong> ${orderDetails.deliveryDate}</p>
+                        <p><strong>Payment Method:</strong> ${orderDetails.paymentMethod}</p>
+                        <h4>Order Items:</h4>
+                        ${orderDetails.items.map(item => 
+                            `<p>${item.menu} x ${item.quantity} - Rp ${item.total.toLocaleString()}</p>`
+                        ).join('')}
+                        <p><strong>Total Price:</strong> Rp ${orderDetails.totalPrice.toLocaleString()}</p>
+                    </div>
+                `,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#6369f5',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, submit order!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    Swal.fire({
+                        title: 'Order Submitted!',
+                        text: 'Thank you for your order. We will process it shortly.',
+                        icon: 'success',
+                        confirmButtonColor: '#6369f5'
+                    });
+
+                    
+                    $('#orderForm')[0].reset();
+                    $('#resultTable tbody').empty();
+                    orderItems = [];
+                    totalPrice = 0;
+                    $('#totalPrice').text('0');
+                }
+            });
+        }
+    });
+
+    
+    function addError(field, errorMessage) {
+        const parentDiv = field.parent('.inputBox');
+        parentDiv.addClass('error');
+        parentDiv.find('.err-msg').remove();
+        $(`<span class="err-msg">${errorMessage}</span>`).insertAfter(field);
+    }
+
+        $('input, select, textarea').on('input', function() {
+        const parentDiv = $(this).parent('.inputBox');
+        parentDiv.removeClass('error');
+        parentDiv.find('.err-msg').remove();
+    });
+});
+
+</script>
+</body>
+</html>

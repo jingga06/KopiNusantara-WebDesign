@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopi Nusantara</title>
+    <link rel="stylesheet" href="/Css/StyleAbout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <section class="aboutus">
+        <img src="/Image About Us/hill1.png" id="hill1">
+        <img src="/Image About Us/hill2.png" id="hill2">
+        <img src="/Image About Us/hill3.png" id="hill3">
+        <img src="/Image About Us/hill4.png" id="hill4">
+        <img src="/Image About Us/hill5.png" id="hill5">
+        <img src="/Image About Us/tree.png" id="tree">
+        <h2 id="text">Wanna Know About Us? <br> <i style="display: flex; justify-content: center;" class="fa-solid fa-eye"></i> </h2>
+        <img src="/Image About Us/leaf.png" id="leaf">
+        <img src="/Image About Us/plant.png" id="plant">
+    </section>
+
+    <section class="sec">
+        <h2 style="font-weight: 600;">Kopi Nusantara <i class="fa-solid fa-mug-hot"></i> </h2>
+        <p><b>Selamat datang</b> di Kopi Nusantara, tempat di mana kami berkomitmen untuk menyajikan kopi berkualitas tinggi dengan sentuhan pribadi. Di Kopi Nusantara, kami percaya bahwa setiap cangkir kopi memiliki cerita. Kami menggunakan biji kopi terbaik dari Nusantara, dipadukan dengan metode penyeduhan yang sempurna, untuk memastikan rasa yang otentik dan tak terlupakan. <br><br> Nikmati suasana yang hangat dan ramah, di mana setiap tegukan kopi membawa Anda lebih dekat ke cita rasa asli Indonesia. Kami bangga memberikan pengalaman kopi yang berbeda, dengan berbagai varian menu yang siap memanjakan lidah Anda.</p> <br><br>
+        <p>
+            <ul style="color: #fff;">
+                <li>Kopi Nusantara menawarkan berbagai pilihan kopi spesial dari seluruh Indonesia.</li>
+                <li>Kami menggunakan biji kopi pilihan yang diproses dengan teknik terbaik.</li>
+                <li>Semua menu kami disajikan dengan sentuhan tradisi dan cita rasa lokal yang kaya.</li>
+            </ul>
+            <br>
+        </p>
+
+        <p>
+            <ol style="color: #fff;" type="1">
+                <li>Pilih jenis kopi favorit Anda dari menu Kopi Nusantara.</li>
+                <li>Tentukan metode penyeduhan yang Anda inginkan (manual brew, espresso, dsb).</li>
+                <li>Nikmati kopi Anda sambil menikmati suasana kafe yang nyaman dan hangat.</li>
+            </ol>   
+            <br>
+        </p>
+
+        <h3 style="color: #fff;">Berikut list Menu & Harga</h3> <br>
+
+        <table>
+            <tr>
+              <th>Coffee</th>
+              <th>Price</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>Americano</td>
+              <td>Rp24.000</td>
+              <td>Kopi yang dibuat dengan mencampurkan espresso dengan air panas.</td>
+            </tr>
+            <tr>
+              <td>Long Black</td>
+              <td>Rp30.000</td>
+              <td>Secangkir kopi hitam dengan dua seloki espresso yang dituangkan di atas air panas.</td>
+            </tr>
+            <tr>
+              <td>Cappuccino</td>
+              <td>Rp34.000</td>
+              <td>Kopi susu dari Italia dengan perbandingan espresso, susu panas, dan busa yang seimbang.</td>
+            </tr>
+            <tr>
+              <td>Caffé Latte</td>
+              <td>Rp28.000</td>
+              <td>Kopi susu dengan espresso kuat sebagai dasarnya.</td>
+            </tr>
+            <tr>
+              <td>Mocha Latte</td>
+              <td>Rp25.000</td>
+              <td>Minuman kopi susu yang manis dengan tambahan cokelat.</td>
+            </tr>
+            
+          </table>
+          <br>
+          <br>
+          <h3 style="color: #fff;">Cara Pembuatan Coffe</h3>
+          <h5 style="color: #fff;">tekan tombol "P" untuk Play</h5> <br>
+
+          <div class="video-container">
+            <iframe id="coffeeVideo" src="https://www.youtube.com/embed/jhlCWuK0V8s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    
+
+    <script>
+      $(document).keypress(function(event) {
+            if (event.key === 'p' || event.key === 'p') {
+                let videoSrc = $("#coffeeVideo").attr("src");
+                $("#coffeeVideo").attr("src", videoSrc + "?autoplay=1");  
+            }
+        });
+
+        $(document).mousemove(function(event) {
+            var width = $(window).width();
+            var height = $(window).height();
+
+            var mouseX = event.pageX;
+            var mouseY = event.pageY;
+
+            var text = $('#text');
+            var leaf = $('#leaf');
+            var hill1 = $('#hill1');
+            var hill4 = $('#hill4');
+            var hill5 = $('#hill5');
+
+            var moveX = (mouseX / width) * 20 - 10; 
+            var moveY = (mouseY / height) * 20 - 10; 
+
+            text.css({
+                'margin-top': moveY * 2.5 + 'px'
+            });
+
+            leaf.css({
+                'top': moveY * -1.5 + 'px',
+                'left': moveX * 1.5 + 'px'
+            });
+
+            hill5.css({
+                'left': moveX * 1.5 + 'px'
+            });
+
+            hill4.css({
+                'left': moveX * -1.5 + 'px'
+            });
+
+            hill1.css({
+                'top': moveY * 1 + 'px'
+            });
+        });
+
+        
+    </script>
+
+</body>
+</html>
